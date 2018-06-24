@@ -1,0 +1,22 @@
+{
+  "name": "spectacles",
+  "version": "1.0.0",
+  "description": "Spec and scripts for generation of practice problems.",
+  "main": "index.js",
+  "scripts": {
+    "test": "npm run test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mottaquikarim/spectacles.git"
+  },
+  "author": "Mottaqui Karim, Mohammed Mosayed",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/mottaquikarim/spectacles/issues"
+  },
+  "homepage": "https://github.com/mottaquikarim/spectacles#readme",
+  "dependencies": {
+    "uuid": "^3.2.1"
+  }
+}
