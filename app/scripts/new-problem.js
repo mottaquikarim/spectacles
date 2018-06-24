@@ -56,4 +56,6 @@ const newProblem = () => {
     return updateContentRc;
 };
 
-newProblem();
+module.exports = {
+    newProblem,
+}
