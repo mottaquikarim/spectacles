@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/mottaquikarim/spectacles#readme",
   "dependencies": {
+    "express": "^4.16.3",
     "minimist": "^1.2.0",
     "uuid": "^3.2.1"
   }
