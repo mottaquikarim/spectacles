@@ -11,9 +11,31 @@ config.CONTENT = `${config.PATH}/content`;
 
 // set files to create under each problem
 config.TEMPLATES = {
-    "prompt.js": "/* prompt.js */",
-    "tests.js": "/* tests.js */",
-    "background.md": "# Problem ",
+    "prompt.js": `
+/* 
+ * FILENAME:    prompt.js
+ * DESC:        write any starter code required here 
+ */
+    `,
+    "tests.js": `
+/* 
+ * FILENAME:    tests.js
+ * DESC:        write any tests that much be asserted for this problem to
+ *              be considered successfully completed
+ * TEST RUNNER: mocha/chai.js
+ */
+    `,
+    "background.md": `
+# Problem Synopsis
+
+Add any and all background / context / requirements needed to solve this poblem here.
+    `,
 };
+
+config.CONTENTRCNAME = '.contentrc';
+config.CONTENTRC = `{
+    "length": 0,
+    "tagsDict": {}
+}`;
 
 module.exports = config;
