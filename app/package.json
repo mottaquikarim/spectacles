@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "npm run test",
-    "new-problem": "node ./index.js new-problem"
+    "new-problem": "node ./index.js new-problem",
+    "run-app": "node ./index.js run-app"
   },
   "repository": {
     "type": "git",
@@ -18,6 +19,8 @@
   },
   "homepage": "https://github.com/mottaquikarim/spectacles#readme",
   "dependencies": {
+    "body-parser": "^1.18.3",
+    "express": "^4.16.3",
     "minimist": "^1.2.0",
     "uuid": "^3.2.1"
   }
