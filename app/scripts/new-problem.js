@@ -17,7 +17,7 @@ const {
     fsWrite,
     fsWriteIfExists,
     mkdirp,
-} = require('./utils');
+} = require('../utils');
 
 /*
  *  @function newProblem
@@ -58,4 +58,4 @@ const newProblem = () => {
 
 module.exports = {
     newProblem,
-}
+};

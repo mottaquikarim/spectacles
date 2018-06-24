@@ -3,6 +3,7 @@
 // npm level imports
 const minimist = require('minimist');
 const {newProblem} = require('./scripts/new-problem');
+const {runApp} = require('./server/app');
 const run = () => {
     const argv = minimist(process.argv.slice(2));
 
@@ -14,6 +15,9 @@ const run = () => {
     switch (scriptName) {
         case "newProblem":
             newProblem();
+            break;
+        case "runApp":
+            runApp();
             break;
         default:
             console.log('not found');
