@@ -4,7 +4,8 @@
   "description": "Spec and scripts for generation of practice problems.",
   "main": "index.js",
   "scripts": {
-    "test": "npm run test"
+    "test": "npm run test",
+    "new-problem": "node ./index.js new-problem"
   },
   "repository": {
     "type": "git",
@@ -17,6 +18,7 @@
   },
   "homepage": "https://github.com/mottaquikarim/spectacles#readme",
   "dependencies": {
+    "minimist": "^1.2.0",
     "uuid": "^3.2.1"
   }
 }
