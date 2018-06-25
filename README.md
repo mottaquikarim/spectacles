@@ -62,11 +62,11 @@ $ npm run-script run-app
 
 In browser, go **[here](http://localhost:3000/?uuid=62e2c530-32d7-4b17-835c-b02f8a137a4a#)**. Expect the following:
 
-![scrn1](https://github.com/mottaquikarim/spectacles/blob/fe-basics/assets/scrn1.png?raw=true)
+![scrn1](https://github.com/mottaquikarim/spectacles/blob/master/assets/scrn1.png?raw=true)
 
 Click on **Run** on top right hand corner. Expect the following:
 
-![scren2](https://github.com/mottaquikarim/spectacles/blob/fe-basics/assets/scrn2.png?raw=true)
+![scren2](https://github.com/mottaquikarim/spectacles/blob/master/assets/scrn2.png?raw=true)
 
 
 
