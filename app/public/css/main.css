@@ -1,0 +1,66 @@
+* {
+    box-sizing: border-box;
+}
+
+html, body {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background: #774CFF;
+}
+
+.app {
+    width: 100%;
+    height: 100%;
+}
+
+.app.loaded {
+	background-color: #000;
+    display: flex;
+    flex-wrap: wrap;
+    padding-top: 40px;
+}
+
+.app.hidden {
+    display: none;
+}
+
+.third-col {
+    width: 33.3333%;
+}
+
+/* id hack to override specificity...
+   dont try this at home, kids */
+#main-theme-override .navbar--slim {
+    padding-top: 0;    
+    padding-bottom: 0;    
+}
+
+#main-theme-override .navbar--over {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 40px;
+    z-index: 999;
+}
+
+@keyframes disappear {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+.bottom-label {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    z-index: 999;
+    animation-delay: 1.5s;
+    animation: disappear 0.5s;
+}
