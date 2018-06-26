@@ -4,20 +4,22 @@ Spec and scripts for generation of practice problems.
 
 # Purpose
 
-We would like to assert a specification for how practice problem content can and should be created. Ideally, if this spec if followed and github is used as a single source of truth for all practice problem content, it can and would be trivial to write multiple clients that consume this data for various purposes.
+Although there are many independent schools teaching software development, there are few consistent formats for the creation and consumption of programming practice problems.
 
-For instance, we can write homework / curriculum generation services that draw on this spec to realiably pull in practice content, parse it and do whatever is necessary as required by business logic.
+**Spectacles** is a series of scripts and a simple Express server that enforces a predefined spec for practice problem generation. It also provides a UI for quickly and easily creating this content and the required unit tests for the content itself.
 
-Additionally, having a strongly "typed" spec can allow _others_ (ie: a coding school in Guatemala) to draw from this content and build custom client implementations that fit _their_ needs, which could likely be vastly different from our use cases.
+Through Spectacles, we are asserting a specification for how practice problem content can and should be created. Ideally, if this spec if followed and Github is used as a single source of truth for all practice problem content, it can and would be trivial to write multiple clients that consume this data for various purposes.
 
-**Spectacles** is a series of scripts and a simple express server that enforces a predefined spec for practice problem generation. It also provides a UI for quickly and easily creating this content and the required unit tests for the content itself.
+For instance, on the student-facing side, we can write homework / curriculum generation services that draw on this spec to reliably pull in practice content, parse it and do whatever is necessary as required by business logic.
+
+Additionally, having a strongly formal spec can allow others (ie: a coding school in Guatemala) to draw from this content and build custom client implementations that fit their needs, which could be different from our use cases.
 
 # Usage
 
 ## Clone this repo
 
 ```
-$ git clone https://github.com/mottaquikarim/spectacles && cd spectacles 
+$ git clone https://github.com/mottaquikarim/spectacles && cd spectacles
 ```
 
 ## CD into `/app` and run `npm install`
@@ -62,7 +64,7 @@ When happy with content, simply git push to commit to SCM and allow others to us
 
 ## Example
 
-First, 
+First,
 
 ```
 $ npm run-script run-app
@@ -77,6 +79,3 @@ In browser, go **[here](http://localhost:3000/?uuid=62e2c530-32d7-4b17-835c-b02f
 Click on **Run** on top right hand corner. Expect the following:
 
 ![scren2](https://github.com/mottaquikarim/spectacles/blob/master/assets/scrn2.png?raw=true)
-
-
-
