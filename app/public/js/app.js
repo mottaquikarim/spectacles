@@ -2,10 +2,10 @@
 
 	const parseParams = () => {
 		const hashstr = window.location.search.substr(1);
-		const hasharr = hashstr.split('&')
+		const hasharr = hashstr.split('&');
 		return hasharr.reduce((hash, arg) => {
-		    const bits = arg.split('=')
-		    hash[bits[0]] = bits[1]
+		    const bits = arg.split('=');
+		    hash[bits[0]] = bits[1];
 		    return hash;
 		}, {});
 	};
@@ -15,11 +15,19 @@
             return new Promise((res, rej) => {
                 const xhr = new XMLHttpRequest();
                 xhr.open('GET', url);
-                xhr.onload = e => res(JSON.parse(e.target.response))
+                xhr.onload = e => res(JSON.parse(e.target.response));
                 xhr.send();
             });
         },
-        post() {},
+        post(url, data) {
+            return new Promise((res, rej) => {
+                const xhr = new XMLHttpRequest();
+                xhr.open('POST', url);
+                xhr.setRequestHeader("Content-Type", "application/json");
+                xhr.onload = e => res(JSON.parse(e.target.response));
+                xhr.send(JSON.stringify(data));
+            });
+        },
     };
 
     const run = () => {
@@ -37,7 +45,7 @@
                 mocha.run();
             }
             else {
-                alert("no tests found!")
+                alert("no tests found!");
             }
 
             return;
@@ -58,7 +66,7 @@
 
     <ul class="navbar-nav">
       <li class="nav-item">
-        <a class="nav-link" href="#">Save</a>
+        <a class="nav-link js-save" href="#">Save</a>
       </li>
       <li class="nav-item">
         <a class="nav-link js-run" href="#">Run</a>
@@ -107,6 +115,30 @@
                     });
 
                     return editor;
+                });
+
+                const save = document.querySelector('.js-save');
+                save.addEventListener('click', e => {
+                    e.preventDefault();
+                    if (localStorage.getItem(uuid)) {
+
+                        Ajax.post(
+                            `/content/${uuid}`,
+                            JSON.parse(localStorage.getItem(uuid)) // lol yes this is dumb
+                        ).then(d => {
+                            if (!d.success) {
+                                alert('failed to save!')
+                                return;
+                            }
+
+                            const timeNow = new Date().toString().split(' ').slice(0,5).join(" ")
+
+                            const changes = document.querySelector('.js-label');
+                            changes.style.display = "inline";
+                            changes.innerHTML = `(changes saved to file at ${timeNow})`
+
+                        });
+                    }
                 });
 
                 const run = document.querySelector('.js-run')
