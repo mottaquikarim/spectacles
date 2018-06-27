@@ -3,20 +3,11 @@ const opn = require('opn');
 const {runApp} = require('../server/app');
 
 const {
-  CONTENT,
-  CONTENTRC,
-  CONTENTRCNAME,
-  PATH,
-  TEMPLATES,
+  CONTENT
 } = require('../config');
 
 const {
-  fsMkdir,
-  fsRead,
-  fsStat,
-  fsWrite,
-  fsWriteIfExists,
-  mkdirp,
+  fsStat
 } = require('../utils');
 
 /*
@@ -30,7 +21,7 @@ const updateProblem = (argv) => {
   // UUID Error Checks
   if (!uuid) { console.log("Error: Please select a UUID."); return; } 
   fsStat(problemDirName)
-    .then(_ => { return runApp() })
+    .then(runApp())
     .then(_ => {
         console.log(`Launching: http://localhost:3000/?uuid=${uuid}`);
         opn(`http://localhost:3000/?uuid=${uuid}`);
