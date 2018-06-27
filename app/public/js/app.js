@@ -75,15 +75,14 @@
   </div>
 </nav>
 <div class="js-tests app hidden"></div>
-<div class="third-col" id="prompt-js" data-type="ace/mode/javascript"></div>
-<div id="tests-js" class="third-col" data-type="ace/mode/javascript"></div>
+<div class="two-third-col" id="prompt-js" data-type="ace/mode/javascript"></div>
+<div id="tests-js" class="third-col hidden" data-type="ace/mode/javascript"></div>
 <div id="background-md" class="third-col" data-type="ace/mode/markdown"></div>
                 `;
 
                 app.classList.add('loaded')
 
                 const changes = document.querySelector('.js-label');
-
                 const editors = Object.keys(d).map(key => {
                     const keyId = key.replace(/\./g, '-');
                     const editor = ace.edit(keyId);
@@ -143,16 +142,22 @@
 
                 const run = document.querySelector('.js-run')
                 const tests = document.querySelector('.js-tests')
+								const promptMd = document.querySelector('#background-md')
+								const jsEditor = document.querySelector('#prompt-js')
                 run.addEventListener('click', e => {
                     e.preventDefault();
                     if (tests.classList.contains('hidden')) {
                         run.innerHTML = `Close`;
                         tests.classList.remove('hidden')
                         tests.innerHTML = `<iframe src="tests.html?uuid=${uuid}" style="width: 100%; height: 100%; border: 0px solid transparent;"></iframe>`
+												promptMd.classList.add('hidden')
+												jsEditor.classList.add('hidden')
                     }
                     else {
                         run.innerHTML = `Run`;
                         tests.classList.add('hidden')
+												promptMd.classList.remove('hidden')
+												jsEditor.classList.remove('hidden')
                     }
                 });
             });

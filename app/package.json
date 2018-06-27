@@ -6,7 +6,7 @@
   "scripts": {
     "test": "npm run test",
     "new-problem": "node ./index.js new-problem",
-    "run-app": "node ./index.js run-app"
+    "run-app": "nodemon ./index.js run-app"
   },
   "repository": {
     "type": "git",
@@ -22,6 +22,7 @@
     "body-parser": "^1.18.3",
     "express": "^4.16.3",
     "minimist": "^1.2.0",
+    "nodemon": "^1.17.5",
     "uuid": "^3.2.1"
   }
 }

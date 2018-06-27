@@ -27,6 +27,9 @@
 
 // implement function here
 
+const newShoppingListItem = (item, price) => {
+    return ({item: item, price: price});
+};
 
 
 
