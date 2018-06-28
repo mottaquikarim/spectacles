@@ -2,9 +2,52 @@
 
 // npm level imports
 const minimist = require('minimist');
+const opn = require('opn');
+
 const {newProblem} = require('./scripts/new-problem');
 const {updateProblem} = require('./scripts/update-problem');
 const {runApp} = require('./server/app');
+
+/*
+ *  @function openInBrowser
+ *  @desc open URL in browser after app boostraps
+ */
+const openInBrowser = (uuid) => {
+    return runApp()
+        .then(_ => {
+            console.log(uuid)
+            if (!uuid) {
+                console.log(`Launching: http://localhost:3000/`);
+                opn(`http://localhost:3000/`);
+
+                return;
+            }
+            
+            console.log(`Launching: http://localhost:3000/?uuid=${uuid}`);
+            opn(`http://localhost:3000/?uuid=${uuid}`);
+        })
+        .catch(e => {
+            console.log('error opening!', e)
+        })
+};
+
+/*
+ *  @function runSwitchLogic
+ *  @desc select the proper script to run based on input
+ */
+const runSwitchLogic = (scriptName, argv) => {
+    switch (scriptName) {
+        case "newProblem":
+           return newProblem();
+        case "updateProblem":
+            return updateProblem(argv);
+        case "runApp":
+            return Promise.resolve();
+        default:
+            return Promise.reject();
+    }
+}
+
 const run = () => {
     const argv = minimist(process.argv.slice(2));
     
@@ -13,19 +56,11 @@ const run = () => {
         return curr[0].toUpperCase() + curr.slice(1);
     }).join("");
 
-    switch (scriptName) {
-        case "newProblem":
-            newProblem();
-            break;
-        case "updateProblem":
-            updateProblem(argv);
-            break;
-        case "runApp":
-            runApp();
-            break;
-        default:
-            console.log('not found');
-    }
+    runSwitchLogic(scriptName, argv)
+        .then(uuid => {
+            return openInBrowser(uuid);
+        })
+        .catch(e => console.log(e))
 };
 
 run();

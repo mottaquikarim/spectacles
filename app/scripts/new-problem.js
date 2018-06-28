@@ -23,7 +23,8 @@ const {
  *  @function newProblem
  */
 const newProblem = () => {
-    const problemDirName = `${CONTENT}/${uuid4()}`;
+    const uuid = uuid4();
+    const problemDirName = `${CONTENT}/${uuid}`;
 
     const createContentDir = mkdirp(CONTENT);
 
@@ -51,6 +52,9 @@ const newProblem = () => {
             jsonContent.length = length+1;
 
             return fsWrite(`${CONTENT}/${CONTENTRCNAME}`, JSON.stringify(jsonContent));
+        })
+        .then(_ => {
+            return uuid;
         });
 
     return updateContentRc;
