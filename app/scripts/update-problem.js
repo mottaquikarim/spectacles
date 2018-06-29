@@ -9,6 +9,8 @@ const {
   fsStat
 } = require('../utils');
 
+const {updateContentRc} = require('./update-contentrc');
+
 /*
  *  @function updateProblem
  */
@@ -23,6 +25,9 @@ const updateProblem = (argv) => {
   } 
 
   return fsStat(problemDirName)
+    .then(_ => {
+        return updateContentRc()
+     })
     .then(() => {
       return uuid;
     })

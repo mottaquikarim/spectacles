@@ -3,13 +3,15 @@
 // module level exports
 const {
     CONTENT,
+    CONTENTRC,
     CONTENTRCNAME,
 } = require('../config');
 
 const {
     fsRead,
-    fsWrite,
     fsReaddir,
+    fsWrite,
+    fsWriteIfExists,
 } = require('../utils');
 
 
@@ -35,8 +37,11 @@ const updateContentRc = () => {
     const getProblems = fsReaddir(CONTENT)
         .then(dirs => dirs.filter(dir => dir !== CONTENTRCNAME));
     
+    // try to create contentrc
+    const tryWriteContentRc = fsWriteIfExists(`${CONTENT}/${CONTENTRCNAME}`, CONTENTRC)
     // read the content in contentrc
-    const readContentRc = fsRead(contentRc, 'utf8')
+    const readContentRc = tryWriteContentRc
+        .then(_ =>fsRead(contentRc, 'utf8'))
         .then(content => JSON.parse(content));
 
     // walk through EACH directory in content/

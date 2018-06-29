@@ -19,6 +19,8 @@ const {
     mkdirp,
 } = require('../utils');
 
+const {updateContentRc} = require('./update-contentrc');
+
 /*
  *  @function newProblem
  */
@@ -43,21 +45,9 @@ const newProblem = () => {
                 }));
         });
 
-    const updateContentRc = createTemplateFiles
-        .then(_ => fsWriteIfExists(`${CONTENT}/${CONTENTRCNAME}`, CONTENTRC))
-        .then(_ => fsRead(`${CONTENT}/${CONTENTRCNAME}`, "utf8"))
-        .then(content => {
-            const jsonContent = JSON.parse(content);
-            const {length, tagsDict} = jsonContent;
-            jsonContent.length = length+1;
-
-            return fsWrite(`${CONTENT}/${CONTENTRCNAME}`, JSON.stringify(jsonContent));
-        })
-        .then(_ => {
-            return uuid;
-        });
-
-    return updateContentRc;
+    return createTemplateFiles
+        .then(_ => updateContentRc())
+        .then(_ => uuid);
 };
 
 module.exports = {
