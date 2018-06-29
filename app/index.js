@@ -4,8 +4,10 @@
 const minimist = require('minimist');
 const opn = require('opn');
 
+// module level exports
 const {newProblem} = require('./scripts/new-problem');
 const {updateProblem} = require('./scripts/update-problem');
+const {updateContentRc} = require('./scripts/update-contentrc');
 const {runApp} = require('./server/app');
 
 /*
@@ -41,6 +43,8 @@ const runSwitchLogic = (scriptName, argv) => {
            return newProblem();
         case "updateProblem":
             return updateProblem(argv);
+        case "updateContentrc":
+            return updateContentRc();
         case "runApp":
             return Promise.resolve();
         default:
@@ -58,7 +62,12 @@ const run = () => {
 
     runSwitchLogic(scriptName, argv)
         .then(uuid => {
-            return openInBrowser(uuid);
+            if (uuid) {
+                return openInBrowser(uuid);
+            }
+            else {
+                console.log('Successfully ran: ' + scriptName);
+            }
         })
         .catch(e => console.log(e))
 };
