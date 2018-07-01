@@ -4,5 +4,8 @@ node_js:
   - "7"
 services:
   - docker
+env:
+  global:
+    - CC_TEST_REPORTER_ID=$CC_TEST_REPORTER_ID
 script:
   - make test
