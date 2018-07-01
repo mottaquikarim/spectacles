@@ -7,7 +7,8 @@
     "test": "npm run test",
     "new-problem": "node ./index.js new-problem",
     "run-app": "node ./index.js run-app",
-    "update-problem": "node ./index.js update-problem"
+    "update-problem": "node ./index.js update-problem",
+    "update-contentrc": "node ./index.js update-contentrc"
   },
   "repository": {
     "type": "git",

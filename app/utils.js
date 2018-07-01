@@ -51,6 +51,12 @@ const fsWrite = promisify(fs, 'writeFile');
 const fsRead = promisify(fs, 'readFile');
 
 /*
+ *  @function fsReaddir
+ *  @desc return promise for reading dir
+ */
+const fsReaddir = promisify(fs, 'readdir');
+
+/*
  *  @function fsWriteIfExists
  *  @desc return promise for writing file if exists
  */
@@ -64,5 +70,6 @@ module.exports = {
     fsStat,
     fsWrite,
     fsWriteIfExists,
+    fsReaddir,
     mkdirp,
 };
