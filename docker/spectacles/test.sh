@@ -18,8 +18,7 @@ set -exo pipefail
 } || true
 
 npm test
+EXIT_CODE=$?
 
 [ -z "${CC_TEST_REPORTER_ID}" ] || ./cc-test-reporter after-build --debug --exit-code ${EXIT_CODE} || true
-
-EXIT_CODE=$?
 exit ${EXIT_CODE}
