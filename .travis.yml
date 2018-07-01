@@ -12,5 +12,4 @@ env:
 script:
   - make test
 after_success:
-  #- test $TRAVIS_BRANCH = "master" && make update-contentrc
-  - make update-contentrc
+  - test $TRAVIS_BRANCH = "master" && make update-contentrc
