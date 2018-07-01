@@ -7,5 +7,10 @@ services:
 env:
   global:
     - CC_TEST_REPORTER_ID=$CC_TEST_REPORTER_ID
+    - GH_TOKEN=$GH_TOKEN
+    - TRAVIS_BRANCH=$TRAVIS_BRANCH
 script:
   - make test
+after_success:
+  #- test $TRAVIS_BRANCH = "master" && make update-contentrc
+  - make update-contentrc
