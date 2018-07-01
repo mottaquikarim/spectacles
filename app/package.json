@@ -4,7 +4,7 @@
   "description": "Spec and scripts for generation of practice problems.",
   "main": "index.js",
   "scripts": {
-    "test": "npm run test",
+    "test": "jest",
     "new-problem": "node ./index.js new-problem",
     "run-app": "node ./index.js run-app",
     "update-problem": "node ./index.js update-problem",
@@ -26,5 +26,14 @@
     "minimist": "^1.2.0",
     "opn": "^5.3.0",
     "uuid": "^3.2.1"
+  },
+  "devDependencies": {
+    "jest": "^23.2.0"
+  },
+  "jest": {
+    "testRegex": "\/tests\/.*(?=(\\.test\\.js))",
+    "testEnvironment": "node",
+    "collectCoverage": true,
+    "coveragePathIgnorePatterns": ["/node_modules/", "/tests/"]
   }
 }
