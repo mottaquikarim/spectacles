@@ -6,3 +6,6 @@ RUN chmod 0777 /test.sh
 WORKDIR /spectacles
 COPY app/ /spectacles/app/
 COPY content/ /spectacles/content/
+
+WORKDIR /spectacles/app
+RUN npm install
