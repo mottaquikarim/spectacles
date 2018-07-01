@@ -20,7 +20,7 @@ commit_to_git() {
 
   cd ../
   git add content/.contentrc
-  git commit --message "Travis build: $TRAVIS_BUILD_NUMBER"
+  git commit --message "Travis build: $TRAVIS_BUILD_NUMBER [ci skip]"
 }
 
 push_to_git() {
