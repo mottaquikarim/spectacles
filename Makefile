@@ -8,7 +8,7 @@ build-dev: cp-envvars
 	docker-compose build ${app}
 
 update-contentrc: build-dev
-	docker-compose run ${app} /push.sh
+	docker-compose run ${app} /update-contentrc.sh
 
 test: build-dev
 	docker-compose run ${app} /test.sh
