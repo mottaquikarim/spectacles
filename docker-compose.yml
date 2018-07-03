@@ -1,0 +1,9 @@
+version: '2.1'
+services:
+
+  spectacles:
+    build:
+      context: .
+      dockerfile: docker/spectacles/Dockerfile
+    env_file: ${DOCKER_ENV_FILE:-envvars}
+

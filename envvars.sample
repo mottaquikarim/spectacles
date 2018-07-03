@@ -1,0 +1,11 @@
+# sample environment variables here
+# for docker build to use
+
+# code climate reporter id for test coverage
+CC_TEST_REPORTER_ID
+
+# github personal access token
+GH_TOKEN
+
+# travis branch name for git
+TRAVIS_BRANCH
