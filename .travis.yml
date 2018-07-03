@@ -8,6 +8,7 @@ env:
   global:
     - CC_TEST_REPORTER_ID=$CC_TEST_REPORTER_ID
     - GH_TOKEN=$GH_TOKEN
+    - GIT_COMMIT_SHA=$TRAVIS_PULL_REQUEST_SHA
     - TRAVIS_BRANCH=$TRAVIS_BRANCH
 script:
   - make test
