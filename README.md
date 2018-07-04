@@ -1,3 +1,4 @@
+[![Build Status](https://travis-ci.org/mottaquikarim/spectacles.svg?branch=master)](https://travis-ci.org/mottaquikarim/spectacles) [![Maintainability](https://api.codeclimate.com/v1/badges/31dbc7931f1615720f64/maintainability)](https://codeclimate.com/github/mottaquikarim/spectacles/maintainability) [![Test Coverage](https://api.codeclimate.com/v1/badges/31dbc7931f1615720f64/test_coverage)](https://codeclimate.com/github/mottaquikarim/spectacles/test_coverage)
 # Spectacles
 
 Spec and scripts for generation of practice problems.
