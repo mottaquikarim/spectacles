@@ -1,4 +1,4 @@
 {
-    "tags": ["a", "b", "c"],
+    "tags": ["a", "b", "c", "arrays", "functional-tests"],
     "title": "Simple ShoppingList"
 }
