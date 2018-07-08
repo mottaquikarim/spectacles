@@ -9,6 +9,7 @@ import App from './components/App';
 import Login from './components/Login';
 import Home from './components/Home';
 import Dashboard from './components/Dashboard';
+import Workspace from './components/Workspace';
 
 render(
   <Provider store={store}>
@@ -17,6 +18,7 @@ render(
             <Route exact path="/" component={Login} />
             <Route path="/home" component={Home} />
             <Route path="/dashboard" component={Dashboard} />
+            <Route path="/workspace/:uuid" component={Workspace} />
         </App>
     </HashRouter>
   </Provider>,

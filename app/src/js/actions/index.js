@@ -2,6 +2,7 @@ import {
     ADD_BRANCHES,
     ADD_PERSONAL_ACCESS_TOKEN,
     ADD_SELECTED_BRANCH,
+    ADD_CONTENTRC,
 } from "../constants/action-types";
 
 export const addAccessToken = token => ({
@@ -18,3 +19,8 @@ export const addSelectedBranch = branch => ({
     type: ADD_SELECTED_BRANCH,
     payload: branch,
 });
+
+export const addContentrc = content => ({
+    type: ADD_CONTENTRC,
+    payload: content,
+})
