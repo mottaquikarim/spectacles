@@ -1,3 +1,4 @@
 {
-    "tags": ["a", "b"]
+    "tags": ["a", "b"],
+    "title": "Simple ShoppingList"
 }
