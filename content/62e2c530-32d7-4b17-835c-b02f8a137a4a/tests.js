@@ -5,7 +5,7 @@
  * TEST RUNNER: mocha/chai.js
  */
     
-// TEST
+// TEST 22
 describe('1. newShoppingListItem', () => {
     it('should return an object with item and price attributes', () => {
         const shoppingListItem = newShoppingListItem('test', 1)
