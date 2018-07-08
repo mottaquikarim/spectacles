@@ -1,5 +1,9 @@
 
-# Problem Synopsis
+# Functions PSET
 
-Add any and all background / context / requirements needed to solve this poblem here.
-    
+The following problems are simple exercises meant to get you comfortable with the basic principles of functions:
+
+* scope
+* arguments
+* return statements
+
