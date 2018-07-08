@@ -142,7 +142,7 @@ export class ConnectedHome extends Component {
                 {usableBranches.map((branch, i) => {
                     const name = branch.ref.split('/').pop();
                     return (<li key={i}>
-                        <strong data-name={name} style={{cursor: 'pointer'}} onClick={this.handleClick}>
+                        <strong data-name={branch.ref} style={{cursor: 'pointer'}} onClick={this.handleClick}>
                             {name}
                         </strong>
                     </li>);

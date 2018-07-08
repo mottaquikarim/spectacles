@@ -1,3 +1,5 @@
+const uuid4 = require('uuid/v4');
+
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
@@ -7,8 +9,13 @@ import {
 } from '../actions/index';
 
 import {
+    SPEC_DEFAULTS,
+} from "../constants/spec-defaults";
+
+import {
     request,
     getPath,
+    save,
 } from "../github";
 
 import WideRow from "./partials/WideRow";
@@ -40,7 +47,41 @@ class ConnectedDashboard extends Component {
         this.state = {
             selectedTag: null,
             tags: {},
+            title: "",
         }
+
+        this.handleChange = this.handleChange.bind(this)
+        this.handleSubmit = this.handleSubmit.bind(this)
+    }
+    handleChange(e) {
+        this.setState({
+            title: e.target.value,
+        })
+    }
+    handleSubmit(e) {
+        e.preventDefault()
+
+        const {title} = this.state;
+        const {selected_branch, match} = this.props
+        const uuid = uuid4();
+
+        const localData = SPEC_DEFAULTS.map(item => {
+            if (item.name === "meta.json") {
+                item.content = JSON.stringify({title,});
+            }
+            return item;
+        });
+
+        save(uuid,
+            localData,
+            selected_branch,
+            `Updating problem ${uuid}`
+        ).then(_ => alert("Successfully committed to Github"))
+         .then(_ => this.props.history.push('/workspace/'+uuid))
+
+        this.setState({
+            title: "",
+        })
     }
     componentDidMount() {
         const {
@@ -106,6 +147,9 @@ class ConnectedDashboard extends Component {
             <br />
             <br />
             {this.renderTagList()}
+            <br />
+            <br />
+            {this.renderCreateNew()}
         </WideRow>);
     }
 
@@ -162,6 +206,24 @@ class ConnectedDashboard extends Component {
                 </div>
             </div>)
         });
+    }
+
+    renderCreateNew() {
+        return (<div>
+            <h2>Create New</h2>
+            <form onSubmit={this.handleSubmit}>
+                <div className="form-group">
+                    <label htmlFor="new-problem-title">Title</label>
+                    <input type="text"
+                        className="form-control"
+                        id="new-problem-title"
+                        onChange={this.handleChange}
+                        value={this.state.title}
+                        placeholder="Enter title" />
+                </div>
+                <button type="submit" className="btn">Create</button>
+            </form>
+        </div>)
     }
 }
 

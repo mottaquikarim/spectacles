@@ -8,6 +8,8 @@ import CodeSpace from "./CodeSpace";
 import {
     request,
     getPath,
+    save,
+    getContent,
 } from "../github";
 
 import '../../css/workspace.css';
@@ -32,7 +34,8 @@ class ConnectedWorkspace extends Component {
         }
     }
     componentDidMount() {
-        const uuid = this.props.match.params.uuid;
+        const {selected_branch, match} = this.props;
+        const {uuid} = match.params;
         if (!uuid) {
             this.props.history.push('/dashboard');
         }
@@ -40,36 +43,13 @@ class ConnectedWorkspace extends Component {
         const localJSON = localStorage.getItem(uuid) || '[]';
         const localData = JSON.parse(localJSON);
 
-        request(
-            getPath('repos', 'contents/content/' + uuid), 
-            "GET",
-        ).then(({data}) => {
-            return Promise.all(data.map(item => {
-                const {path} = item;
-                const hash = {};
-                hash.name = path.split('/').pop();
-                hash.type = hash.name.split('.').pop();
-                return request(getPath("repos", "contents/" + path), "GET").then(({data}) => {
-                    const {content} = data;
-                    const localItem = localData.filter(item => item.name === data.name)
-                    if (localItem.length) {
-                        hash.content = localItem[0].content;
-                    }
-                    else {
-                        const tformedContent = atob(content);
-                        hash.content = tformedContent;
-                    }
-                    hash.sha = data.sha;
-                    return hash;
-                })
-            })).then(all => {
-                localStorage.setItem(uuid, JSON.stringify(all));
+        getContent(uuid, localData, selected_branch)
+            .then(all => {
                 this.setState({
                     isLoading: false,
                     activeItem: all[0].name,
                 });
             });
-        })
     }
 
     updateActive(name) {
@@ -79,80 +59,17 @@ class ConnectedWorkspace extends Component {
     }
 
     save() {
-        const uuid = this.props.match.params.uuid;
+        const {selected_branch, match} = this.props
+        const {uuid} = match.params
 
         const localJSON = localStorage.getItem(uuid) || '{}';
         const localData = JSON.parse(localJSON);
 
-        const commitSha = request(getPath("repos", "git/" + this.props.selected_branch), "GET")
-            .then(({data}) => data.object.sha)
-
-        const shaBaseTree = commitSha.then(sha => request(getPath("repos", "git/commits/" + sha), "GET"))
-            .then(({data}) => data.sha);
-
-        const shaNewTree = shaBaseTree.then(sha => request(
-            getPath("repos", "git/trees"),
-            "POST",
-            {},
-            {},
-            {
-                base_tree: sha,
-                tree: localData.map(each =>({
-                    mode: '100644',
-                    type: 'blob',
-                    path: 'content/' + uuid + "/" + each.name,
-                    content: each.content,
-                })),
-            }
-        )).then(({data}) => data.sha);
-
-        const shaNewCommit = Promise.all([commitSha, shaNewTree])
-            .then(([commitSha, shaNewTree]) => {
-                return request(
-                    getPath("repos", "git/commits"),
-                    "POST",
-                    {},
-                    {},
-                    {
-                        parents: [commitSha],
-                        tree: shaNewTree,
-                        message: "Trying bulk level commit",
-                    }
-                );
-            })
-            .then(({data}) => data.sha);
-        
-        const finalStep = shaNewCommit.then(sha => request(
-            getPath("repos", "git/" + this.props.selected_branch),
-            "POST",
-            {},
-            {},
-            {
-                sha,
-            }
-        )).then(({data}) => console.log(data));
-
-            /*
-            .then(currentRef => {
-                const sha = currentRef.object.sha;
-                const ref = currentRef.ref;
-                return Promise.all(localData.map(each => {
-                    console.log(each.content)
-                    return request(
-                        getPath('repos', 'contents/content/' + uuid + "/" + each.name), 
-                        "PUT",
-                        {},
-                        {},
-                        {
-                            "message": "testing!",
-                            "content": btoa(each.content),
-                            "sha": each.sha,
-                            "branch": ref,
-                        },
-                    );
-                }));
-            }).then(all => console.log(all));
-            */
+        save(this.props.match.params.uuid,
+            localData,
+            selected_branch,
+            `Updating problem ${uuid}`
+        ).then(_ => alert("Successfully committed to Github"));
     }
 
     render() {
