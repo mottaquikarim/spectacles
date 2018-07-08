@@ -10,9 +10,14 @@ const mapStateToProps = state => {
   }
 };
 
-const selectedBranch = selected_branch => (<div>
-    {selected_branch ? (<div><strong>CURRENT BRANCH: </strong>{selected_branch}</div>) : null}
-</div>)
+const selectedBranch = selected_branch => {
+    if (!selected_branch) return null;
+
+    return (<div className="btn-group">
+        <div className="btn btn-sm btn-info active"><strong>BRANCH</strong></div>
+        <div className="btn btn-sm btn-info">{selected_branch}</div>
+    </div>);
+}
 
 const ConnectedHeader = ({selected_branch}) => (<nav className="navbar navbar-expand-lg navbar-dark">
     <Link className="navbar-brand" to="/">SPECTACLES</Link>
