@@ -8,7 +8,8 @@
     "new-problem": "node ./index.js new-problem",
     "run-app": "node ./index.js run-app",
     "update-problem": "node ./index.js update-problem",
-    "update-contentrc": "node ./index.js update-contentrc"
+    "update-contentrc": "node ./index.js update-contentrc",
+    "start": "webpack-dev-server --mode development --open"
   },
   "repository": {
     "type": "git",
@@ -28,12 +29,34 @@
     "uuid": "^3.2.1"
   },
   "devDependencies": {
-    "jest": "^23.2.0"
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.4",
+    "babel-preset-env": "^1.6.1",
+    "babel-preset-react": "^6.24.1",
+    "css-loader": "^0.28.11",
+    "history": "^4.7.2",
+    "html-loader": "^0.5.5",
+    "html-webpack-plugin": "^3.0.7",
+    "jest": "^23.2.0",
+    "mini-css-extract-plugin": "^0.2.0",
+    "react": "^16.3.0",
+    "react-dom": "^16.3.0",
+    "react-redux": "^5.0.7",
+    "react-router": "^4.3.1",
+    "react-router-dom": "^4.3.1",
+    "react-router-redux": "^4.0.8",
+    "redux": "^4.0.0",
+    "webpack": "^4.2.0",
+    "webpack-cli": "^2.0.12",
+    "webpack-dev-server": "^3.1.1"
   },
   "jest": {
-    "testRegex": "\/tests\/.*(?=(\\.test\\.js))",
+    "testRegex": "/tests/.*(?=(\\.test\\.js))",
     "testEnvironment": "node",
     "collectCoverage": true,
-    "coveragePathIgnorePatterns": ["/node_modules/", "/tests/"]
+    "coveragePathIgnorePatterns": [
+      "/node_modules/",
+      "/tests/"
+    ]
   }
 }
