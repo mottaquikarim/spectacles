@@ -1,11 +1,13 @@
 import React from "react";
-import List from "./List";
-const App = ({children}) => (
-  <div className="row mt-5">
-    <div className="col-md-4 offset-md-1">
-    <h2>Articles</h2>
-    { children }
+import Header from "./Header";
+
+import '../../css/common.css';
+
+const App = ({children}) => (<main>
+    <Header />
+    <br />
+    <div className="container">
+        { children }
     </div>
-  </div>
-);
+</main>);
 export default App;
