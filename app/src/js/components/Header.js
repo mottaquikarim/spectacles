@@ -15,7 +15,14 @@ const selectedBranch = selected_branch => {
 
     return (<div className="btn-group">
         <div className="btn btn-sm btn-info active"><strong>BRANCH</strong></div>
-        <div className="btn btn-sm btn-info">{selected_branch}</div>
+        <div className="btn btn-sm btn-info active">{selected_branch}</div>
+        <div className="btn btn-sm btn-info">
+            <Link to="/home">
+                <strong style={{color: "white"}}>
+                    (Switch)
+                </strong>
+            </Link>
+        </div>
     </div>);
 }
 
