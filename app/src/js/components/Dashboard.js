@@ -48,6 +48,7 @@ class ConnectedDashboard extends Component {
             selectedTag: null,
             tags: {},
             title: "",
+            all: [],
         }
 
         this.handleChange = this.handleChange.bind(this)
@@ -98,6 +99,7 @@ class ConnectedDashboard extends Component {
             history.push("/home");
         }
 
+        // get contentrc for tags parsing
         request(
             getPath("repos", "contents/content/.contentrc"),
             "GET",
@@ -109,6 +111,36 @@ class ConnectedDashboard extends Component {
 
             this.props.addContentrc(tformedContent);
         });
+
+        // get all content
+        request(
+            getPath("repos", "contents/"),
+            "GET",
+            {ref: selected_branch,}
+        ).then(({data}) => {
+            const contentDir = data.filter(item => item.name === "content");
+            if (contentDir.length === 0) return;
+            const contentSha = contentDir[0].sha;
+
+            return request(
+                getPath("repos", "git/trees/"+contentSha),
+                "GET",
+                {recursive: 1},
+            );
+        }).then(({data}) => data.tree.filter(item => item.path.indexOf("meta.json") > -1))
+          .then(data => Promise.all(data.map(item => request(
+            getPath("repos", "contents/content/"+item.path),
+            "GET",
+            {ref: selected_branch}
+          ).then(({data}) => {
+            const {content} = data;
+            const tformedContent = JSON.parse(atob(content));
+            return {tformedContent, data, uuid: item.path.split('/')[0]};
+          }))))
+          .then(all => {
+            console.log(all)
+            this.setState({all,})
+          })
     }
 
     getContentItems(e, tag, data) {
@@ -150,6 +182,9 @@ class ConnectedDashboard extends Component {
             <br />
             <br />
             {this.renderCreateNew()}
+            <br />
+            <br />
+            {this.renderAll()}
         </WideRow>);
     }
 
@@ -158,7 +193,7 @@ class ConnectedDashboard extends Component {
         const {selectedTag} = this.state;
         if (!contentrc) {
             return null;
-        }
+       }
 
         if (contentrc.tagsDict.length === 0) {
             return (<div>No tags found</div>);
@@ -182,12 +217,8 @@ class ConnectedDashboard extends Component {
         </div>)
     }
 
-    renderTagList() {
-        const {selectedTag, tags} = this.state;
-        if (!selectedTag || !tags[selectedTag]) return null;
-
-        return tags[selectedTag].map((item, i) => {
-            console.log(item, selectedTag);
+    _renderList(items) {
+        return items.map((item, i) => {
             const {tformedContent, data, uuid} = item;
             return (<div className="card text-white mb-12" key={i}>
                 <div className="card-header">
@@ -198,7 +229,7 @@ class ConnectedDashboard extends Component {
                         <strong>UUID: </strong> {uuid}
                     </div>
                     <div className="card-text">
-                        <strong>TAGS: </strong> {tformedContent.tags.map((tag, j) => {
+                        <strong>TAGS: </strong> {(tformedContent.tags || []).map((tag, j) => {
                             return <span
                                 key={j}>{tag + (j === tformedContent.tags.length - 1 ? "" : ", ")}</span>
                         })}
@@ -206,6 +237,13 @@ class ConnectedDashboard extends Component {
                 </div>
             </div>)
         });
+    }
+
+    renderTagList() {
+        const {selectedTag, tags} = this.state;
+        if (!selectedTag || !tags[selectedTag]) return null;
+
+        return this._renderList(tags[selectedTag]);
     }
 
     renderCreateNew() {
@@ -224,6 +262,15 @@ class ConnectedDashboard extends Component {
                 <button type="submit" className="btn">Create</button>
             </form>
         </div>)
+    }
+
+    renderAll() {
+        if (this.state.all.length === 0) return null;
+
+        return (<div>
+            <h2>All Problems</h2>
+            {this._renderList(this.state.all)}
+        </div>);
     }
 }
 
