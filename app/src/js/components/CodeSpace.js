@@ -2,6 +2,8 @@ import React, {Component} from 'react';
 
 const ace = require('brace');
 require('brace/mode/javascript');
+require('brace/mode/markdown');
+require('brace/mode/json');
 require('brace/theme/monokai');
 
 const marked = require('marked')
