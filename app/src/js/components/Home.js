@@ -11,6 +11,7 @@ import {
 } from "../github";
 
 import CenteredRow from "./partials/CenteredRow";
+import Loader from "./partials/Loader";
 
 const mapStateToProps = state => {
   const {
@@ -178,16 +179,7 @@ export class ConnectedHome extends Component {
     }
 
     renderLoading() {
-        const wrapStyles = {
-            display: 'flex',
-            height: '300px',
-            alignItems: 'center',
-            justifyContent: 'center',
-        };
-
-        return (<div style={wrapStyles}>
-            <div id="loading"></div>
-        </div>);
+        return <Loader />;
     }
 
     renderData() {
