@@ -31,6 +31,11 @@ class ConnectedWorkspace extends Component {
         this.state = {
             isLoading: true,
             activeItem: null,
+            modalShowing: false,
+            prTitle: "",
+            prBody: "",
+            prExists: false,
+            html_url: null,
         }
     }
     componentDidMount() {
@@ -50,6 +55,22 @@ class ConnectedWorkspace extends Component {
                     activeItem: all[0].name,
                 });
             });
+
+        request(
+            getPath("repos", "pulls"),
+            "GET"
+        ).then(({data}) => {
+            return data.filter(pr => selected_branch.indexOf(pr.head.ref) > -1);
+        })
+        .then(([item]) => {
+            if (!item) {
+                return;
+            }
+            this.setState({
+                prExists: true,
+                html_url: item.html_url,
+            })
+        });
     }
 
     updateActive(name) {
@@ -72,10 +93,82 @@ class ConnectedWorkspace extends Component {
         ).then(_ => alert("Successfully committed to Github"));
     }
 
+    closeModal(e) {
+        e.preventDefault();
+
+        let currentNode = e.target;
+        while (!currentNode.matches('body')) {
+            if (currentNode.matches('.pr-form')) {
+                e.stopPropagation();
+                return false;
+            }
+            currentNode = currentNode.parentNode;
+        }
+
+        this.setState({
+            modalShowing: false,
+        });
+
+    }
+
+    handleChange(title, e) {
+        this.setState({
+            [title]: e.target.value,
+        })
+    }
+
+    openPRModal(e) {
+        e.preventDefault();
+        this.setState({
+            modalShowing: true,
+        });
+    }
+
+    openPR() {
+        const {selected_branch, match} = this.props
+        const {uuid} = match.params
+        const {prTitle, prBody} = this.state;
+
+        if (!prTitle || !prBody) {
+            alert('Title and body content required to open PR!');
+            return;
+        }
+
+        request(
+            getPath("repos", "pulls"),
+            "POST",
+            {},
+            {},
+            {
+                "title": prTitle,
+                "head": selected_branch,
+                "base": "master",
+                "body": prBody, 
+            }
+        ).then(({data}) => {
+            const {html_url} = data;
+            alert("Successfully opened PR!")
+            this.setState({
+                html_url,
+                prExists: true,
+            });
+        }, e => {
+            const message = e.response.data.errors.map(error => error.message).join('\n');
+            alert(message);
+        }).then(_ => {
+            this.setState({
+                prTitle: "",
+                prBody: "",
+                modalShowing: false,
+            });
+        });
+    }
+
     render() {
         return (<div>
             {this.renderLoading()}
             {this.renderWorkspace()}
+            {this.renderModal()}
         </div>);
     }
     renderLoading() {
@@ -122,8 +215,11 @@ class ConnectedWorkspace extends Component {
                         {name}
                     </li>);
                 })}
-                <li key={"test"} style={listItemStyles} className="list-group-item d-flex justify-content-between align-items-center">
+                <li key={"save"} style={listItemStyles} className="list-group-item d-flex justify-content-between align-items-center">
                     <button className="btn btn-primary" onClick={this.save.bind(this)}>Save</button>
+                </li>
+                <li key={"PR"} style={listItemStyles} className="list-group-item d-flex justify-content-between align-items-center">
+                    {this.renderBtnOrLink()}
                 </li>
                 </ul>
             </div>
@@ -131,6 +227,56 @@ class ConnectedWorkspace extends Component {
                 <CodeSpace uuid={uuid} name={this.state.activeItem} />
             </div>
         </div>)
+    }
+
+    renderBtnOrLink() {
+        const {prExists, html_url} = this.state;
+        if (!prExists) {
+            return (<button className="btn btn-success" onClick={this.openPRModal.bind(this)}>Open PR</button>)
+        }
+
+        return (<a className="btn btn-success" href={html_url} target="_blank">Go To PR</a>)
+    }
+    renderModal() {
+        if (!this.state.modalShowing) return null;
+
+        const modalStyles = {
+            position: "fixed",
+            top: "0",
+            left: "0",
+            width: "100%",
+            height: "100%",
+            backgroundColor: "rgba(0,0,0,0.4)",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            zIndex: 10,
+        };
+        return (<div style={modalStyles} onClick={this.closeModal.bind(this)}>
+            <form className="pr-form" style={{"width": "50%"}}>
+                <div className="form-group">
+                    <label htmlFor="pr-title">Create a PR</label>
+                    <p>
+                        This will open a PR against <b>master</b>
+                    </p>
+                    <input type="text"
+                        className="form-control"
+                        id="pr-title"
+                        onChange={e => this.handleChange("prTitle", e)}
+                        value={this.state.prTitle}
+                        placeholder="Enter title of PR" />
+                    <small className="form-text text-muted">Title of your PR</small>
+                    <input type="text"
+                        className="form-control"
+                        id="pr-body"
+                        onChange={e => this.handleChange("prBody", e)}
+                        value={this.state.prBody}
+                        placeholder="Enter body content (comments, etc) for PR" />
+                    <small className="form-text text-muted">Add any relevant comments as needed</small>
+                </div>
+                <button type="submit" className="btn" onClick={this.openPR.bind(this)}>Create PR</button>
+            </form>
+        </div>);
     }
 }
 
