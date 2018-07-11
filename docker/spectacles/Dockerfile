@@ -11,4 +11,4 @@ COPY app/ /spectacles/app/
 COPY content/ /spectacles/content/
 
 WORKDIR /spectacles/app
-RUN npm install
+RUN npm install --silent
