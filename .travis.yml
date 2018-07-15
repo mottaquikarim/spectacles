@@ -12,5 +12,6 @@ env:
     - TRAVIS_BRANCH=$TRAVIS_BRANCH
 script:
   - make test
+  - make content_assertions
 after_success:
   - test $TRAVIS_BRANCH = "master" && make update-contentrc

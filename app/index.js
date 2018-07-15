@@ -8,6 +8,7 @@ const opn = require('opn');
 const {newProblem} = require('./scripts/new-problem');
 const {updateProblem} = require('./scripts/update-problem');
 const {updateContentRc} = require('./scripts/update-contentrc');
+const {contentAssertions} = require('./scripts/content-assertions');
 const {runApp} = require('./server/app');
 
 /*
@@ -29,7 +30,9 @@ const openInBrowser = (uuid) => {
             opn(`http://localhost:3000/?uuid=${uuid}`);
         })
         .catch(e => {
-            console.log('error opening!', e)
+            console.log('error opening!', e);
+            // exit with error
+            process.exit(1);
         })
 };
 
@@ -45,6 +48,8 @@ const runSwitchLogic = (scriptName, argv) => {
             return updateProblem(argv);
         case "updateContentrc":
             return updateContentRc();
+        case "contentAssertions":
+            return contentAssertions();
         case "runApp":
             return Promise.resolve();
         default:
@@ -69,7 +74,11 @@ const run = () => {
                 console.log('Successfully ran: ' + scriptName);
             }
         })
-        .catch(e => console.log(e))
+        .catch(e => {
+            console.log(e)
+            // exit with error
+            process.exit(1);
+        })
 };
 
 run();

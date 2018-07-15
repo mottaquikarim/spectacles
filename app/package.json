@@ -9,6 +9,7 @@
     "run-app": "node ./index.js run-app",
     "update-problem": "node ./index.js update-problem",
     "update-contentrc": "node ./index.js update-contentrc",
+    "content-assertions": "node ./index.js content-assertions",
     "start": "webpack-dev-server --mode development --open",
     "build": "webpack --mode production"
   },

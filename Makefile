@@ -13,4 +13,7 @@ update-contentrc: build-dev
 test: build-dev
 	docker-compose run ${app} /test.sh
 
+content-assertions: build-dev
+	docker-compose run ${app} /content-assertions.sh
+
 test-dev: test

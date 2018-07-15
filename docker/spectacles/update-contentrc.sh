@@ -30,5 +30,6 @@ push_to_git() {
 setup_git
 commit_to_git
 push_to_git
+EXIT_CODE=$?
 
 exit ${EXIT_CODE}
