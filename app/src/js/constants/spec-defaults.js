@@ -7,7 +7,7 @@ Add any and all background / context / requirements needed to solve this poblem 
     `,
 }, {
     name: "meta.json",
-    content: `{}`,
+    content: `{"tags": ["REMOVE_ME"],"title": ""}`,
 }, {
     name: "prompt.js",
     content: `
