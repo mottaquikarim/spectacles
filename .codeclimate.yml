@@ -15,3 +15,5 @@ checks:
   method-lines:
     config:
       threshold: 100
+  exclude_patterns:
+    - "content/"
