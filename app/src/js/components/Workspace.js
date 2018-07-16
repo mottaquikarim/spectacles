@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 
 import CenteredRow from "./partials/CenteredRow";
 import Loader from "./partials/Loader";
-import CodeSpace from "./CodeSpace";
+import WrapEditor from "./WrapEditor";
 
 import {
     request,
@@ -224,7 +224,7 @@ class ConnectedWorkspace extends Component {
                 </ul>
             </div>
             <div className="right-col" style={rightColStyles}>
-                <CodeSpace uuid={uuid} name={this.state.activeItem} />
+                <WrapEditor uuid={uuid} name={this.state.activeItem} />
             </div>
         </div>)
     }
