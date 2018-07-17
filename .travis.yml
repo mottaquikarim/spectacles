@@ -14,8 +14,7 @@ script:
   - make test
   - make content-assertions
 after_success:
-  - test $TRAVIS_BRANCH = "master" && make update-contentrc
-  - test $TRAVIS_BRANCH = "master" && make build-dist
+  - test $TRAVIS_BRANCH = "master" && make update-contentrc && make build-dist
 deploy:
   provider: pages
   skip-cleanup: true
