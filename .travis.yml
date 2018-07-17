@@ -15,3 +15,10 @@ script:
   - make content-assertions
 after_success:
   - test $TRAVIS_BRANCH = "master" && make update-contentrc
+deploy:
+  provider: pages
+  skip-cleanup: true
+  github-token: $GH_TOKEN
+  keep-history: true
+  on:
+    branch: master
