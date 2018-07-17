@@ -13,6 +13,7 @@ env:
 script:
   - make test
   - make content-assertions
+  - test $TRAVIS_BRANCH = "master" && make build-dist
 after_success:
   - test $TRAVIS_BRANCH = "master" && make update-contentrc && make build-dist
 deploy:
