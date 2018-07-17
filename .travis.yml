@@ -13,6 +13,14 @@ env:
 script:
   - make test
   - make content-assertions
-  - test $TRAVIS_BRANCH = "master" && make build-dist
 after_success:
-  - test $TRAVIS_BRANCH = "master" && make update-contentrc && make build-dist
+  - test $TRAVIS_BRANCH = "master" && make update-contentrc
+before_deploy: make build-dist
+deploy:
+  provider: pages
+  skip-cleanup: true
+  github-token: $GH_TOKEN
+  keep-history: true
+  local-dir: app/dist
+  on:
+    branch: master
