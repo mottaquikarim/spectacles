@@ -9,7 +9,7 @@ describe('promisify', () => {
     fixt.cbTest = (cb) => {
         cb(null, 'test!') 
     }
-    promisifyFixt = promisify(fixt, 'cbTest'); 
+    const promisifyFixt = promisify(fixt, 'cbTest'); 
 
     it('should return a function', () => {
         expect(typeof promisifyFixt).toBe('function');
