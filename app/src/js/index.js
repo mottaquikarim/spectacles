@@ -11,16 +11,20 @@ import Home from './components/Home';
 import Dashboard from './components/Dashboard';
 import Workspace from './components/Workspace';
 
-render(
-  <Provider store={store}>
-    <HashRouter>
-        <App>
-            <Route exact path="/" component={Login} />
-            <Route path="/home" component={Home} />
-            <Route path="/dashboard" component={Dashboard} />
-            <Route path="/workspace/:uuid" component={Workspace} />
-        </App>
-    </HashRouter>
-  </Provider>,
-  document.getElementById("app")
-);
+const app = document.getElementById("app");
+
+if (app) {
+    render(
+      <Provider store={store}>
+        <HashRouter>
+            <App>
+                <Route exact path="/" component={Login} />
+                <Route path="/home" component={Home} />
+                <Route path="/dashboard" component={Dashboard} />
+                <Route path="/workspace/:uuid" component={Workspace} />
+            </App>
+        </HashRouter>
+      </Provider>,
+      app
+    );
+}

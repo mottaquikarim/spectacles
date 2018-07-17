@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import Editor from './Editor';
 import MarkdownEditor from './MarkdownEditor';
 import JSONEditor from './JSONEditor';
+import TestEditor from './TestEditor';
 
 const getContentFromJson = (name, uuid) => {
     const json = localStorage.getItem(uuid);
@@ -29,6 +30,11 @@ class WrapEditor extends Component {
         else if (content.type === "md") {
             type = "markdown";
             Component = MarkdownEditor;
+        }
+        // yes, this is gross
+        // TODO: make this suck less
+        else if (name === "tests.js") {
+            Component = TestEditor;
         }
 
         return (<div id="wrap-editor" style={{width: '100%', height: '100%', display: 'flex'}}>

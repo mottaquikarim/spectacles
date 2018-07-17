@@ -17,18 +17,18 @@ class Editor extends Component {
         editor.getSession().setValue(content.content);
 
         let timeout = null;
-        const json = localStorage.getItem(uuid);
-        const data = JSON.parse(json);
-        editor.getSession().on('change', () => {
+        const editorSession = editor.getSession();
+        editorSession.on('change', () => {
             clearTimeout(timeout);
             timeout = setTimeout(() => {
+                const json = localStorage.getItem(uuid);
+                const data = JSON.parse(json);
                 const items = data.map(item => {
                     if (item.name === name) {
                         item.content = editor.getValue();
                     }
                     return item;
                 });
-
                 localStorage.setItem(uuid, JSON.stringify(items));
             }, 500);
         });
