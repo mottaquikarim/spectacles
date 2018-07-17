@@ -16,11 +16,3 @@ script:
   - test $TRAVIS_BRANCH = "master" && make build-dist
 after_success:
   - test $TRAVIS_BRANCH = "master" && make update-contentrc && make build-dist
-deploy:
-  provider: pages
-  skip-cleanup: true
-  github-token: $GH_TOKEN
-  keep-history: true
-  local-dir: app/dist
-  on:
-    branch: master
