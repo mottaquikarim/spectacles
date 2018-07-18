@@ -5,4 +5,13 @@
  *              be considered successfully completed
  * TEST RUNNER: mocha/chai.js
  */
-    
+
+
+describe('Numbers', function(){
+  describe("#max2(a, b)", function() {
+    it('should return the maximum' , function() {
+      chai.assert.equal(9, 9);
+    });
+  })
+})
+
