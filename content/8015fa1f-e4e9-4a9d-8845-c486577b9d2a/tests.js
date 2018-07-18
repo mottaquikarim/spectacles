@@ -7,10 +7,14 @@
  */
 
 
-describe('Numbers', function(){
-  describe("#max2(a, b)", function() {
-    it('should return the maximum' , function() {
-      chai.assert.equal(9, 9);
+
+describe('Conditionals', function(){
+  describe("#shouldTakeUmbrella()", function() {
+    it('should return False if chance of rain is less than 50%' , function() {
+      chai.assert.equal(shouldTakeUmbrella(40), false);
+    });
+    it('should return True if chance of rain is greater than 50%' , function() {
+      chai.assert.equal(shouldTakeUmbrella(60), true);
     });
   })
 })
