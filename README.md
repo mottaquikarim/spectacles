@@ -1,5 +1,7 @@
 [![Build Status](https://travis-ci.org/mottaquikarim/spectacles.svg?branch=master)](https://travis-ci.org/mottaquikarim/spectacles) [![Maintainability](https://api.codeclimate.com/v1/badges/31dbc7931f1615720f64/maintainability)](https://codeclimate.com/github/mottaquikarim/spectacles/maintainability) [![Test Coverage](https://api.codeclimate.com/v1/badges/31dbc7931f1615720f64/test_coverage)](https://codeclimate.com/github/mottaquikarim/spectacles/test_coverage)
-# Spectacles
+
+# [Spectacles](https://spectacles.surge.sh/#/)
+^ Deployed app - however will only really work for collaborators. Pls open an issue if interested in contributing to the content for *this* repo!
 
 Spec and scripts for generation of practice problems.
 
@@ -80,3 +82,4 @@ In browser, go **[here](http://localhost:3000/?uuid=62e2c530-32d7-4b17-835c-b02f
 Click on **Run** on top right hand corner. Expect the following:
 
 ![scren2](https://github.com/mottaquikarim/spectacles/blob/master/assets/scrn2.png?raw=true)
+

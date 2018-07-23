@@ -9,6 +9,9 @@ RUN chmod 0777 /update-contentrc.sh
 COPY docker/spectacles/content-assertions.sh /content-assertions.sh
 RUN chmod 0777 /content-assertions.sh
 
+COPY docker/spectacles/deploy.sh /deploy.sh
+RUN chmod 0777 /deploy.sh
+
 WORKDIR /spectacles
 COPY app/ /spectacles/app/
 COPY content/ /spectacles/content/

@@ -10,17 +10,14 @@ env:
     - GH_TOKEN=$GH_TOKEN
     - GIT_COMMIT_SHA=$TRAVIS_PULL_REQUEST_SHA
     - TRAVIS_BRANCH=$TRAVIS_BRANCH
+    - SURGE_LOGIN=$SURGE_LOGIN
+    - SURGE_TOKEN=$SURGE_TOKEN
 script:
   - make test
   - make content-assertions
-after_success:
-  - test $TRAVIS_BRANCH = "master" && make update-contentrc
-before_deploy: make build-dist
+  - make update-contentrc
 deploy:
-  provider: pages
-  skip-cleanup: true
-  github-token: $GH_TOKEN
-  keep-history: true
-  local-dir: app/dist
+  provider: script
+  script: make deploy 
   on:
-    branch: master
+    branch: master 

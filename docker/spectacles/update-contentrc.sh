@@ -24,12 +24,12 @@ commit_to_git() {
 }
 
 push_to_git() {
-  git push --quiet --set-upstream origin $TRAVIS_BRANCH 
+  git push --quiet --set-upstream origin $TRAVIS_BRANCH
 }
 
-setup_git
-commit_to_git
-push_to_git
+setup_git || true
+commit_to_git || true
+push_to_git || true
 EXIT_CODE=$?
 
 exit ${EXIT_CODE}

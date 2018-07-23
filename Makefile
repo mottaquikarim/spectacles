@@ -16,6 +16,9 @@ test: build-dev
 build-dist: build-dev
 	docker-compose run ${app} npm run-script build 
 
+deploy: build-dev
+	docker-compose run ${app} /deploy.sh 
+
 content-assertions: build-dev
 	docker-compose run ${app} /content-assertions.sh
 

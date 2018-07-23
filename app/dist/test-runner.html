@@ -1,0 +1,36 @@
+<!DOCTYPE html> <html> <head> <title>Tests</title> <link rel=stylesheet href=https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css> <link href=https://cdn.rawgit.com/mochajs/mocha/2.2.5/mocha.css rel=stylesheet /> <link href="./src/css/main.css" rel="stylesheet"></head> <body id=main-theme-override class=js-tests-runner> <div id=mocha></div> <script src=https://cdnjs.cloudflare.com/ajax/libs/chai/4.1.2/chai.min.js></script> <script src=https://cdn.rawgit.com/mochajs/mocha/2.2.5/mocha.js></script> <script>mocha.setup("bdd")</script> <script> (() => { // protect the lemmings!
+
+                const parseParams = () => {
+                    const hashstr = window.location.search.substr(1);
+                    const hasharr = hashstr.split('&');
+                    return hasharr.reduce((hash, arg) => {
+                        const bits = arg.split('=');
+                        hash[bits[0]] = bits[1];
+                        return hash;
+                    }, {});
+                }; // parseParams
+
+
+                const run = () => {
+                    const {uuid} = parseParams();
+                    if (localStorage.getItem(uuid)) {
+                        const data = JSON.parse(localStorage.getItem(uuid));
+                        const testData = Object.assign({}, ...data.filter(item => {
+                                return item.name === "prompt.js" || item.name === "tests.js"
+                            })
+                            .map(item => ({
+                                [item.name]: item.content, 
+                            })));
+
+                        eval(testData['prompt.js'] + '\n' + testData['tests.js']);
+                        /*mocha.checkLeaks();*/
+                        mocha.run();
+                    }
+                    else {
+                        document.querySelector(".js-tests-runner").innerHTML = "No tests found!";
+                    }
+                }; // run
+
+                run();
+
+            })(); </script> <script type="text/javascript" src="main.js"></script></body> </html> 

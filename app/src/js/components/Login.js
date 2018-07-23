@@ -69,7 +69,7 @@ class ConnectedLogin extends Component {
                         Please create a 
                         {" "} <a href="https://github.com/settings/tokens" target="_blank">
                                 Github Personal Access Token
-                              </a>
+                              </a> {" "}
                         with <strong>repo</strong> permissions.
                     </p>
                     <form onSubmit={this.handleSubmit}>
