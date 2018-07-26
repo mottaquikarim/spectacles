@@ -15,6 +15,9 @@
     @example addTwoNumbers(1) // 1
 */
 
+function addTwoNumbers (a,b) {
+    return (a + b);
+}
 
 /*
     @func turnNumberToString
@@ -26,6 +29,10 @@
     @example turnNumberToString("2"); // "2"
 */
 
+function turnNumberToString (a) {
+    return a.toString()
+}
+
 /*
     @func fullName
     @param {string} firstName
@@ -36,6 +43,10 @@
     @example fullName('Taq', 'Karim'); // "Taq Karim"
     @example fullName('Foo'); // "Foo"
 */
+
+function fullName(firstName, lastName) {
+    return firstName + " " + lastName;
+}
 
 /*
     @func fullNameSentence
@@ -51,6 +62,10 @@
         // expect: "John Smith is awesome"
         fullNameSentence('John', 'Smith', 'is awesome');
 */
+
+function fullNameSentence (firstName, lastName, restOfSentence) {
+    return fullName(firstName,lastName) + " " + restOfSentence;
+}
 
 /*
     @func fullNameSentenceWithChecks
@@ -72,6 +87,14 @@
         fullNameSentenceWithChecks('John', 'Smith');
 */
 
+function fullNameSentenceWithChecks (firstName, lastName, restOfSentence) {
+    if (restOfSentence === undefined || lastName === undefined) {
+        return "Required variables are not set!";
+    }
+    return fullNameSentence(firstName,lastName,restOfSentence);
+}
+
+
 /*
     @func fToC
     @param {number} f
@@ -83,6 +106,11 @@
     @example fToC(); // 0
     
 */
+
+
+function fToC (f) {
+    return (f - 32) * (9 / 5);
+}
 
 /*
     @func fToKelvin
