@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 
 import {
     addContentrc,
+    addAccessToken,
 } from '../actions/index';
 
 import {
@@ -37,6 +38,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
     return {
         addContentrc: content => dispatch(addContentrc(content)),
+        addAccessToken: token => dispatch(addAccessToken(token)),
     };
 };
 
@@ -100,7 +102,7 @@ class ConnectedDashboard extends Component {
         }
 
         // get contentrc for tags parsing
-        request(
+        const contentrc = request(
             getPath("repos", "contents/content/.contentrc"),
             "GET",
             {ref: selected_branch}
@@ -113,7 +115,7 @@ class ConnectedDashboard extends Component {
         });
 
         // get all content
-        request(
+        const allContent = request(
             getPath("repos", "contents/"),
             "GET",
             {ref: selected_branch,}
@@ -141,6 +143,18 @@ class ConnectedDashboard extends Component {
             console.log(all)
             this.setState({all,})
           })
+
+          // race will yield as soon as one of the two promises
+          // raises an error, sliiiightly faster
+          Promise.race([contentrc,allContent])
+            .catch(e => {
+                console.log(e)
+                if (e.response.data.message === 'Bad credentials') {
+                    alert('Credentials expired!')
+                    this.props.addAccessToken(null);
+                    history.push("/");
+                }
+            })
     }
 
     getContentItems(e, tag, data) {

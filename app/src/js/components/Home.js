@@ -4,7 +4,9 @@ import { connect } from "react-redux";
 import {
     addBranches,
     addSelectedBranch,
+    addAccessToken,
 } from '../actions/index';
+
 import {
     request,
     getPath,
@@ -32,6 +34,7 @@ const mapDispatchToProps = dispatch => {
     return {
         addBranches: data => dispatch(addBranches(data)),
         addSelectedBranch: branch => dispatch(addSelectedBranch(branch)),
+        addAccessToken: token => dispatch(addAccessToken(token)),
     };
 };
 
@@ -111,6 +114,11 @@ export class ConnectedHome extends Component {
             })
             .catch(e => {
                 console.log(e)
+                if (e.response.data.message === 'Bad credentials') {
+                    alert('Credentials expired!')
+                    this.props.addAccessToken(null);
+                    history.push("/");
+                }
             })
     }
 

@@ -6,6 +6,10 @@ import Loader from "./partials/Loader";
 import WrapEditor from "./WrapEditor";
 
 import {
+    addAccessToken,
+} from '../actions/index';
+
+import {
     request,
     getPath,
     save,
@@ -24,6 +28,12 @@ const mapStateToProps = state => {
   }
 };
 
+const mapDispatchToProps = dispatch => {
+    return {
+        addAccessToken: token => dispatch(addAccessToken(token)),
+    };
+};
+
 class ConnectedWorkspace extends Component {
     constructor() {
         super()
@@ -39,7 +49,7 @@ class ConnectedWorkspace extends Component {
         }
     }
     componentDidMount() {
-        const {selected_branch, match} = this.props;
+        const {selected_branch, match, history} = this.props;
         const {uuid} = match.params;
         if (!uuid) {
             this.props.history.push('/dashboard');
@@ -70,6 +80,13 @@ class ConnectedWorkspace extends Component {
                 prExists: true,
                 html_url: item.html_url,
             })
+        })
+        .catch(e => {
+            if (e.response.data.message === 'Bad credentials') {
+                alert('Credentials expired!')
+                this.props.addAccessToken(null);
+                history.push("/");
+            }
         });
     }
 
@@ -280,5 +297,5 @@ class ConnectedWorkspace extends Component {
     }
 }
 
-const Workspace = connect(mapStateToProps)(ConnectedWorkspace);
+const Workspace = connect(mapStateToProps, mapDispatchToProps)(ConnectedWorkspace);
 export default Workspace;
