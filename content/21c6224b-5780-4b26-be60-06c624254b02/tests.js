@@ -103,15 +103,40 @@ describe('BASICS I', function(){
    it('fToC(212) should return 100', function() {
       chai.assert.equal(fToC(212),100);
     });
-    it('fToC(32) should return 0', function() {
-      chai.assert.equal(fToC(32),0);
+    it('fToC(-49) should return -45', function() {
+      chai.assert.equal(fToC(-49),-45);
     });
-    it('fToC(32) should return 0', function() {
-      chai.assert.equal(fToC(32),0);
-    });
+      
   });
   
+  describe("fToKelvin(f)", function() {
+    it('fToKelvin(32) should return 273.15', function() {
+        chai.assert.equal(fToKelvin(32), 273.15);
+    });
+    it('fToKelvin(212) should return 373.15', function() {
+        chai.assert.equal(fToKelvin(212), 373.15);
+    });
+    it('fToKelvin(5) should return 258.15', function() {
+        chai.assert.equal(fToKelvin(5), 258.15);
+    });
+      
+  });
   
+  describe("ftoKelvinWithChecks(f)", function() {
+    it('fToKelvinWithChecks(32) should return 273.15', function() {
+        chai.assert.equal(fToKelvinWithChecks(32),273.15);
+    });
+    it('fToKelvinWithChecks() should return "ERROR: variable `f` is not set"' , function() { //how do i replace ` with ' ?
+        chai.assert.equal(fToKelvinWithChecks(), "ERROR: variable 'f' is not set");
+    });
+    it('fToKelvinWithChecks(212) should return 373.15', function() {
+        chai.assert.equal(fToKelvinWithChecks(212),373.15);
+    });
+    it('fToKelvin(5) should return 258.15', function() {
+        chai.assert.equal(fToKelvinWithChecks(5),258.15);
+    });
+    
+  });
   
   
 });

@@ -15,9 +15,6 @@
     @example addTwoNumbers(1) // 1
 */
 
-function addTwoNumbers (a,b) {
-    return (a + b);
-}
 
 /*
     @func turnNumberToString
@@ -29,9 +26,6 @@ function addTwoNumbers (a,b) {
     @example turnNumberToString("2"); // "2"
 */
 
-function turnNumberToString (a) {
-    return a.toString()
-}
 
 /*
     @func fullName
@@ -44,9 +38,6 @@ function turnNumberToString (a) {
     @example fullName('Foo'); // "Foo"
 */
 
-function fullName(firstName, lastName) {
-    return firstName + " " + lastName;
-}
 
 /*
     @func fullNameSentence
@@ -63,9 +54,6 @@ function fullName(firstName, lastName) {
         fullNameSentence('John', 'Smith', 'is awesome');
 */
 
-function fullNameSentence (firstName, lastName, restOfSentence) {
-    return fullName(firstName,lastName) + " " + restOfSentence;
-}
 
 /*
     @func fullNameSentenceWithChecks
@@ -87,12 +75,6 @@ function fullNameSentence (firstName, lastName, restOfSentence) {
         fullNameSentenceWithChecks('John', 'Smith');
 */
 
-function fullNameSentenceWithChecks (firstName, lastName, restOfSentence) {
-    if (restOfSentence === undefined || lastName === undefined) {
-        return "Required variables are not set!";
-    }
-    return fullNameSentence(firstName,lastName,restOfSentence);
-}
 
 
 /*
@@ -108,9 +90,6 @@ function fullNameSentenceWithChecks (firstName, lastName, restOfSentence) {
 */
 
 
-function fToC (f) {
-    return (f - 32) * (9 / 5);
-}
 
 /*
     @func fToKelvin
@@ -128,6 +107,7 @@ function fToC (f) {
     @example fToC(); // 273.15
 */
 
+
 /*
     @func fToKelvinWithChecks
     @param {number} f
@@ -144,5 +124,4 @@ function fToC (f) {
     @exmple fToC( 212 ); // 373.15
     @example fToC(); // "ERROR: variable 'f' is not set"
 */
-
 
