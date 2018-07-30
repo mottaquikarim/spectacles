@@ -1,4 +1,4 @@
-var assert = require('assert');
+var assert = chai.assert
 
 /* 
  * FILENAME:    tests.js
@@ -6,6 +6,7 @@ var assert = require('assert');
  *              be considered successfully completed
  * TEST RUNNER: mocha/chai.js
  */
+
 describe('Numbers', function(){
   describe("#max2(a, b)", function() {
     it('should return the maximum' , function() {
@@ -34,11 +35,11 @@ describe('Numbers', function(){
 //"done" if time >= 40
 
 describe('Numbers', function(){
-  describe("#max2(a, b)", function() {
+  describe("#testing(a, b)", function() {
     it('should return just started if time < 5' , function() {
       assert.equal(testing(4.9), "just started");
     });
-    it('should return hustling if 5<= time < 25' , function() {
+    it('should return hustling if 5 <= time < 25' , function() {
       assert.equal(testing(5), "hustling");
     });
     it('should return hustling if 5 <= time < 25' , function() {
