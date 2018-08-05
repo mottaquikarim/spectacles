@@ -1,7 +1,7 @@
 export const SPEC_DEFAULTS = [{
     name: "background.md",
     content: `
-# Problem Synopsis
+# Name
 
 Add any and all background / context / requirements needed to solve this poblem here.
     `,
@@ -15,6 +15,22 @@ Add any and all background / context / requirements needed to solve this poblem 
  * FILENAME:    prompt.js
  * DESC:        write any starter code required here 
  */
+
+// EXAMPLE: pls remove
+/*
+    @func addTwoNumbers
+    @param {number} a
+    @param {number} b
+    @returns {number}
+    @desc - adds two numbers and returns the result
+    
+    @example addTwoNumbers(1,2) // 3
+    @example addTwoNumbers(1) // 1
+*/
+
+function addTwoNumbers (a,b){
+    return (a + b)
+}
     `,
 }, {
     name: "tests.js",
@@ -25,5 +41,18 @@ Add any and all background / context / requirements needed to solve this poblem 
  *              be considered successfully completed
  * TEST RUNNER: mocha/chai.js
  */
+
+// EXAMPLE: pls remove
+describe('BasicsI', function(){
+  describe("#addTwoNumbers(a, b)", function() {
+    it('should return the sum' , function() {
+      assert.equal(addTwoNumbers(2, 9), 11);
+    });
+
+    it('should return the sum' , function() {
+      assert.equal(addTwoNumbers(3), 3);
+    });
+  })
+})
     `,
 }];
