@@ -46,11 +46,11 @@ function addTwoNumbers (a,b){
 describe('BasicsI', function(){
   describe("#addTwoNumbers(a, b)", function() {
     it('should return the sum' , function() {
-      assert.equal(addTwoNumbers(2, 9), 11);
+      chai.assert.equal(addTwoNumbers(2, 9), 11);
     });
 
     it('should return the sum' , function() {
-      assert.equal(addTwoNumbers(3), 3);
+      chai.assert.equal(addTwoNumbers(3), 3);
     });
   })
 })
